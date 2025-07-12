@@ -1,4 +1,18 @@
-class Task:
+from abc import ABC, abstractmethod
+
+class TaskInterface(ABC):
+    @abstractmethod
+    def mark_done(self):
+        """Mark this task as completed"""
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        """Return a user-friendly string representation"""
+        pass
+
+
+class Task(TaskInterface):
     def __init__(self, title: str, priority: int = 3):
         """Create a new task with a title and priority (1=high, 5=low)"""
         self.title = title
@@ -20,7 +34,7 @@ class TodoList:
         """Initialize an empty todo list"""
         self.tasks = []
 
-    def add_task(self, *tasks: Task):
+    def add_task(self, *tasks: TaskInterface):
         """Add one or more tasks"""
         for task in tasks:
             self.tasks.append(task)
